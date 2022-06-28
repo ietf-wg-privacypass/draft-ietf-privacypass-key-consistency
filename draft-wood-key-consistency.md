@@ -227,14 +227,18 @@ In this model, users leverage multiple, non-colluding proxies to fetch keys from
 ~~~
 {: #fig-disc-multi-proxy title="Multi-Proxy Discovery Example"}
 
-These proxies are ideally spread across multiple vantage points. Examples of proxies include anonymous
+These proxies are ideally spread across multiple vantage points. Examples of proxies include anonymous 
 systems such as Tor. Tor proxies are general purpose and operate at a lower layer, on arbitrary
 communication flows, and therefore they are oblivious to clients fetching keys. A large set of untrusted
 proxies that are aware of key fetch requests ({{proxy-based}}) may be used in a similar way. Depending
 on how clients fetch such keys from servers, it may become
 more difficult for servers to uniquely target individual users with unique keys without detection.
 This is especially true as the number of users of these anonymity networks increases. However, beyond
-Tor, there does not exist a special-purpose anonymity network for this purpose.
+Tor, there does not exist a special-purpose anonymity network for this purpose. 
+
+Note that connecting to Tor proxies may not be a viable option (indeed, could even be dangerous) for 
+clients operating in managed networks which scrutinize and/or ban Tor traffic. 
+
 
 ## Database Discovery {#external-db-based}
 
@@ -342,9 +346,10 @@ Encrypting this way could provide better latency properties than a separate chec
 The model in {{anon-discovery}} seems to be the most lightweight and easy-to-deploy mechanism for
 ensuring key consistency and correctness. However, it remains unclear if there exists such an
 anonymity network that can scale to the widespread adoption of and requirements of protocols like
-Privacy Pass, Oblivious DoH, or Oblivious HTTP. Existing infrastructure based on technologies
-like Certificate Transparency or Key Transparency may work, but there is currently no general
-purpose system for transparency of opaque keys (or other application data).
+Privacy Pass, Oblivious DoH, or Oblivious HTTP. Also, using such a network carries its own set
+of risks for clients (as described in {{anon-discovery}}), so in some cases it might be impractical.
+Existing infrastructure based on technologies like Certificate Transparency or Key Transparency 
+may work, but there is currently no general purpose system for transparency of opaque keys (or other application data).
 
 # Security Considerations {#sec}
 
