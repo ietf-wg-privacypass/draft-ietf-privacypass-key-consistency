@@ -53,6 +53,7 @@ informative:
   PRIVACY-PASS: I-D.ietf-privacypass-protocol
   PRIVACY-PASS-ARCH: I-D.ietf-privacypass-architecture
   OHTTP: I-D.ietf-ohai-ohttp
+  DOUBLECHECK: I-D.schwartz-ohai-consistency-doublecheck
 
 --- abstract
 
@@ -165,9 +166,9 @@ External mechanisms to ensure consistency here might include, though are not lim
 The precise external mechanism used here depends largely on the threat model. If there is a trusted
 external log for keys, this may be a viable solution.
 
-## Single Proxy Discovery {#proxy-based}
+## Trusted Proxy Discovery {#proxy-based}
 
-In this model, there exists a proxy that fetches keys from servers on behalf of multiple users, as shown
+In this model, there exists a trusted proxy that fetches keys from servers on behalf of multiple users, as shown
 below.
 
 ~~~ aasvg
@@ -193,13 +194,49 @@ below.
 {: #fig-disc-proxy title="Single Proxy Discovery Example"}
 
 If this proxy is trusted, then all users which request a key from this server are assured they have
-a consistent view of the server key. However, if this proxy is not trusted, operational risks may arise:
+a consistent view of the server key.
+
+## Untrusted Proxy Discovery {#shared-proxy}.
+
+In this model, there exists a shared, untrusted proxy that clients can use to fetch keys from servers.
+Without additional steps by clients, operational risks may arise:
 
 - The proxy can collude with the server to give per-user keys to clients.
 - The proxy can give all users a key owned by the proxy, and either collude with the server to use this
   key or retroactively use this key to compromise user privacy when users later make use of the key.
 
-Mitigating these risks may require tamper-proof logs as in {{server-based}}, or via user gossip protocols.
+Mitigating these risks can be done in a variety of ways. For example, clients may demand tamper-proof
+proof evidence that the key is consistent and correct for the server, using techniques described in {{server-based}}.
+Clients may gossip amongst themselves to determine if they are being served different keys.
+
+Alternatively, clients may directly confirm the key provided by the proxy by "checking" with the server.
+One variant of this checking mechanism is described in {{DOUBLECHECK}}. Briefly, clients connect directly
+to the server through some proxy (so as to hide their identity) and ask for the key. If this key does not
+match that provided by the shared, untrusted proxy, the clients conclude that the key is malicious.
+This is shown in {{fig-disc-untrusted-proxy}}.
+
+~~~ aasvg
++----------+
+|          |
+|  Client  +-----------+
+|          |           |
++----------+           |
+                       v
++----------+         +-----------+       +----------+
+|          |         | Untrusted |       |          |
+|  Client  +-------->+   Proxy   +------>+  Server  |
+|          |         |           |       |          |
+|          ==============================>          |
++----------+         +-+---------+       +----------+
+      x                ^
+      x                |
++----------+           |
+|          |           |
+|  Client  +-----------+
+|          |
++----------+
+~~~
+{: #fig-disc-untrusted-proxy title="Untrusted Proxy with Confirmation Discovery Example"}
 
 ## Multi-Proxy Discovery {#anon-discovery}
 
