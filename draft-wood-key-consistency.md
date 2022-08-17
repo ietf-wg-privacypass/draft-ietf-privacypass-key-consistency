@@ -53,6 +53,7 @@ informative:
   PRIVACY-PASS: I-D.ietf-privacypass-protocol
   PRIVACY-PASS-ARCH: I-D.ietf-privacypass-architecture
   OHTTP: I-D.ietf-ohai-ohttp
+  DOUBLECHECK: I-D.schwartz-ohai-consistency-doublecheck
 
 --- abstract
 
@@ -165,9 +166,9 @@ External mechanisms to ensure consistency here might include, though are not lim
 The precise external mechanism used here depends largely on the threat model. If there is a trusted
 external log for keys, this may be a viable solution.
 
-## Single Proxy Discovery {#proxy-based}
+## Trusted Proxy Discovery {#proxy-based}
 
-In this model, there exists a proxy that fetches keys from servers on behalf of multiple users, as shown
+In this model, there exists a trusted proxy that fetches keys from servers on behalf of multiple users, as shown
 below.
 
 ~~~ aasvg
@@ -199,7 +200,42 @@ a consistent view of the server key. However, if this proxy is not trusted, oper
 - The proxy can give all users a key owned by the proxy, and either collude with the server to use this
   key or retroactively use this key to compromise user privacy when users later make use of the key.
 
-Mitigating these risks may require tamper-proof logs as in {{server-based}}, or via user gossip protocols.
+Mitigating these risks can be done in a variety of ways. For example, clients may demand tamper-proof
+proof evidence that the key is consistent and correct for the server, using techniques described in {{server-based}}.
+Clients may gossip amongst themselves to determine if they are being served different keys.
+Alternatively, the clients may attempt to confirm the key provided by the proxy, as described in {{shared-proxy-with-confirmation}}.
+
+## Shared Proxy with Key Confirmation {#shared-proxy-with-confirmation}
+
+Clients that retrieve keys through a single proxy can directly confirm the correctness of this key
+provided by the proxy by "checking" with the server. One variant of this checking mechanism is
+described in {{DOUBLECHECK}}. Briefly, clients connect directly to the server through some proxy
+(so as to hide their identity) and ask for the key. If this key does not match that provided by the
+shared proxy, the clients conclude that the key is malicious. This is shown in {{fig-disc-shared-proxy}}.
+
+~~~ aasvg
++----------+
+|          |
+|  Client  +-----------+
+|          |           |
++----------+           |
+                       v
++----------+         +-----------+       +----------+
+|          |         |  Shared   |       |          |
+|  Client  +-------->+   Proxy   +------>+  Server  |
+|          |         |           |       |          |
+|          +============================>+          |
+|          |         |           |       |          |
++----------+         +-+---------+       +----------+
+      x                ^
+      x                |
++----------+           |
+|          |           |
+|  Client  +-----------+
+|          |
++----------+
+~~~
+{: #fig-disc-shared-proxy title="Shared Proxy with Confirmation Discovery Example"}
 
 ## Multi-Proxy Discovery {#anon-discovery}
 
@@ -227,17 +263,17 @@ In this model, users leverage multiple, non-colluding proxies to fetch keys from
 ~~~
 {: #fig-disc-multi-proxy title="Multi-Proxy Discovery Example"}
 
-These proxies are ideally spread across multiple vantage points. Examples of proxies include anonymous 
+These proxies are ideally spread across multiple vantage points. Examples of proxies include anonymous
 systems such as Tor. Tor proxies are general purpose and operate at a lower layer, on arbitrary
 communication flows, and therefore they are oblivious to clients fetching keys. A large set of untrusted
 proxies that are aware of key fetch requests ({{proxy-based}}) may be used in a similar way. Depending
 on how clients fetch such keys from servers, it may become
 more difficult for servers to uniquely target individual users with unique keys without detection.
 This is especially true as the number of users of these anonymity networks increases. However, beyond
-Tor, there does not exist a special-purpose anonymity network for this purpose. 
+Tor, there does not exist a special-purpose anonymity network for this purpose.
 
-Note that connecting to Tor proxies may not be a viable option (indeed, could even be dangerous) for 
-clients operating in managed networks which scrutinize and/or ban Tor traffic. 
+Note that connecting to Tor proxies may not be a viable option (indeed, could even be dangerous) for
+clients operating in managed networks which scrutinize and/or ban Tor traffic.
 
 
 ## Database Discovery {#external-db-based}
@@ -348,7 +384,7 @@ ensuring key consistency and correctness. However, it remains unclear if there e
 anonymity network that can scale to the widespread adoption of and requirements of protocols like
 Privacy Pass, Oblivious DoH, or Oblivious HTTP. Also, using such a network carries its own set
 of risks for clients (as described in {{anon-discovery}}), so in some cases it might be impractical.
-Existing infrastructure based on technologies like Certificate Transparency or Key Transparency 
+Existing infrastructure based on technologies like Certificate Transparency or Key Transparency
 may work, but there is currently no general purpose system for transparency of opaque keys (or other application data).
 
 # Security Considerations {#sec}
