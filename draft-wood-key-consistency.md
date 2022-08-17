@@ -194,12 +194,7 @@ below.
 {: #fig-disc-proxy title="Single Proxy Discovery Example"}
 
 If this proxy is trusted, then all users which request a key from this server are assured they have
-a consistent view of the server key.
-
-## Untrusted Proxy Discovery {#shared-proxy}.
-
-In this model, there exists a shared, untrusted proxy that clients can use to fetch keys from servers.
-Without additional steps by clients, operational risks may arise:
+a consistent view of the server key. However, if this proxy is not trusted, operational risks may arise:
 
 - The proxy can collude with the server to give per-user keys to clients.
 - The proxy can give all users a key owned by the proxy, and either collude with the server to use this
@@ -208,12 +203,15 @@ Without additional steps by clients, operational risks may arise:
 Mitigating these risks can be done in a variety of ways. For example, clients may demand tamper-proof
 proof evidence that the key is consistent and correct for the server, using techniques described in {{server-based}}.
 Clients may gossip amongst themselves to determine if they are being served different keys.
+Alternatively, the clients may attempt to confirm the key provided by the proxy, as described in {{shared-proxy-with-confirmation}}.
 
-Alternatively, clients may directly confirm the key provided by the proxy by "checking" with the server.
-One variant of this checking mechanism is described in {{DOUBLECHECK}}. Briefly, clients connect directly
-to the server through some proxy (so as to hide their identity) and ask for the key. If this key does not
-match that provided by the shared, untrusted proxy, the clients conclude that the key is malicious.
-This is shown in {{fig-disc-untrusted-proxy}}.
+## Shared Proxy with Key Confirmation {#shared-proxy-with-confirmation}.
+
+Clients that retrieve keys through a single proxy can directly confirm the correctness of this key
+provided by the proxy by "checking" with the server. One variant of this checking mechanism is
+described in {{DOUBLECHECK}}. Briefly, clients connect directly to the server through some proxy
+(so as to hide their identity) and ask for the key. If this key does not match that provided by the
+shared proxy, the clients conclude that the key is malicious. This is shown in {{fig-disc-untrusted-proxy}}.
 
 ~~~ aasvg
 +----------+
@@ -223,7 +221,7 @@ This is shown in {{fig-disc-untrusted-proxy}}.
 +----------+           |
                        v
 +----------+         +-----------+       +----------+
-|          |         | Untrusted |       |          |
+|          |         |  Shared   |       |          |
 |  Client  +-------->+   Proxy   +------>+  Server  |
 |          |         |           |       |          |
 |          +============================>+          |
@@ -237,7 +235,7 @@ This is shown in {{fig-disc-untrusted-proxy}}.
 |          |
 +----------+
 ~~~
-{: #fig-disc-untrusted-proxy title="Untrusted Proxy with Confirmation Discovery Example"}
+{: #fig-disc-shared-proxy title="Shared Proxy with Confirmation Discovery Example"}
 
 ## Multi-Proxy Discovery {#anon-discovery}
 
