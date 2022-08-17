@@ -205,13 +205,13 @@ proof evidence that the key is consistent and correct for the server, using tech
 Clients may gossip amongst themselves to determine if they are being served different keys.
 Alternatively, the clients may attempt to confirm the key provided by the proxy, as described in {{shared-proxy-with-confirmation}}.
 
-## Shared Proxy with Key Confirmation {#shared-proxy-with-confirmation}.
+## Shared Proxy with Key Confirmation {#shared-proxy-with-confirmation}
 
 Clients that retrieve keys through a single proxy can directly confirm the correctness of this key
 provided by the proxy by "checking" with the server. One variant of this checking mechanism is
 described in {{DOUBLECHECK}}. Briefly, clients connect directly to the server through some proxy
 (so as to hide their identity) and ask for the key. If this key does not match that provided by the
-shared proxy, the clients conclude that the key is malicious. This is shown in {{fig-disc-untrusted-proxy}}.
+shared proxy, the clients conclude that the key is malicious. This is shown in {{fig-disc-shared-proxy}}.
 
 ~~~ aasvg
 +----------+
