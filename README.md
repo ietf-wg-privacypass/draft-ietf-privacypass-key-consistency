@@ -2,9 +2,9 @@
 
 This is the working area for the individual Internet-Draft, "Key Consistency and Discovery".
 
-* [Editor's Copy](https://chris-wood.github.io/key-consistency/#go.draft-wood-key-consistency.html)
-* [Individual Draft](https://tools.ietf.org/html/draft-wood-key-consistency)
-* [Compare Editor's Copy to Individual Draft](https://chris-wood.github.io/key-consistency/#go.draft-wood-key-consistency.diff)
+* [Editor's Copy](https://chris-wood.github.io/key-consistency/#go.draft-ietf-privacypass-key-consistency.html)
+* [Individual Draft](https://tools.ietf.org/html/draft-ietf-privacypass-key-consistency)
+* [Compare Editor's Copy to Individual Draft](https://chris-wood.github.io/key-consistency/#go.draft-ietf-privacypass-key-consistency.diff)
 
 ## Building the Draft
 
