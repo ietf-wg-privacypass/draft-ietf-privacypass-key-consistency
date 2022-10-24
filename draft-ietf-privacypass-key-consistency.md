@@ -1,7 +1,7 @@
 ---
 title: Key Consistency and Discovery
 abbrev: Key Consistency and Discovery
-docname: draft-wood-key-consistency-latest
+docname: draft-ietf-privacypass-key-consistency-latest
 date:
 category: info
 
@@ -14,7 +14,7 @@ venue:
 #  mail: WG@example.com
 #  arch: https://example.com/WG
   github: "chris-wood/key-consistency"
-  latest: "https://chris-wood.github.io/key-consistency/draft-wood-key-consistency.html"
+  latest: "https://chris-wood.github.io/key-consistency/draft-ietf-privacypass-key-consistency.html"
 keyword:
  - privacy
  - consistency
