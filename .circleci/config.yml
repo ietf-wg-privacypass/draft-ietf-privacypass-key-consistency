@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: martinthomson/i-d-template:latest
+    resource_class: small
     working_directory: ~/draft
 
     steps:
@@ -10,7 +11,7 @@ jobs:
           name: "Print Configuration"
           command: |
             xml2rfc --version
-            gem list -q kramdown-rfc2629
+            gem list -q kramdown-rfc
             echo -n 'mmark '; mmark --version
 
       - restore_cache:
@@ -42,7 +43,7 @@ jobs:
       # Build txt and html versions of drafts
       - run:
           name: "Build Drafts"
-          command: "make 'CLONE_ARGS=--reference ~/git-reference'"
+          command: make
 
       # Update editor's copy on gh-pages
       - run:
