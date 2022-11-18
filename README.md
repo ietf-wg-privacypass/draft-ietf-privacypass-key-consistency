@@ -2,16 +2,16 @@
 
 This is the working area for the IETF [PRIVACYPASS Working Group](https://datatracker.ietf.org/wg/privacypass/documents/) Internet-Draft, "Key Consistency and Discovery".
 
-* [Editor's Copy](https://chris-wood.github.io/key-consitency/#go.draft-ietf-privacypass-key-consistency.html)
+* [Editor's Copy](https://ietf-wg-privacypass.github.io/draft-ietf-privacypass-key-consistency/#go.draft-ietf-privacypass-key-consistency.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-ietf-privacypass-key-consistency)
 * [Working Group Draft](https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-key-consistency)
-* [Compare Editor's Copy to Working Group Draft](https://chris-wood.github.io/key-consitency/#go.draft-ietf-privacypass-key-consistency.diff)
+* [Compare Editor's Copy to Working Group Draft](https://ietf-wg-privacypass.github.io/draft-ietf-privacypass-key-consistency/#go.draft-ietf-privacypass-key-consistency.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/chris-wood/key-consitency/blob/master/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
