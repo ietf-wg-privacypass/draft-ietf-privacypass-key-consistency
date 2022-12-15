@@ -1,0 +1,1304 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2022-12-15T00:51:19.225922+00:00",
+  "repo": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 9,
+      "id": "MDU6SXNzdWU4MzgxMzA1ODM=",
+      "title": "Rename master->main",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/issues/9",
+      "state": "CLOSED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [
+        "chris-wood"
+      ],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-03-22T21:41:49Z",
+      "updatedAt": "2021-03-22T21:48:50Z",
+      "closedAt": "2021-03-22T21:48:50Z",
+      "comments": []
+    },
+    {
+      "number": 12,
+      "id": "MDU6SXNzdWU5NzEyOTMzMDM=",
+      "title": "Fixed key model",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/issues/12",
+      "state": "OPEN",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "The fixed key model is not as crazy as the draft makes out.  It only requires that the systems for updating the thing that contains the key (such as an endpoint software release) has adequate update mechanisms.  \r\n\r\nI would then observe that this means that the update mechanism has a dependency on KCCS also.  That is, you need to ensure that everyone gets the same update.\r\n\r\nTherefore, I might recast this text as saying that: a fixed key either doesn't work, or shifts the KCCS problem to another component in the system.",
+      "createdAt": "2021-08-16T01:53:37Z",
+      "updatedAt": "2021-08-16T15:25:23Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Therefore, I might recast this text as saying that: a fixed key either doesn't work, or shifts the KCCS problem to another component in the system.\r\n\r\n\ud83d\udc4d ",
+          "createdAt": "2021-08-16T15:25:23Z",
+          "updatedAt": "2021-08-16T15:25:23Z"
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "id": "MDU6SXNzdWU5NzEyOTQzMzY=",
+      "title": "The database might be trusted",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/issues/13",
+      "state": "OPEN",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "It's no different than a proxy at that point, but it might be worth mentioning.",
+      "createdAt": "2021-08-16T01:57:08Z",
+      "updatedAt": "2021-08-16T01:57:08Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 18,
+      "id": "I_kwDOFFM6Sc5L4Bb0",
+      "title": "Keygen costs aren't a factor",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/issues/18",
+      "state": "CLOSED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> Trial decryption costs can be increased by choosing a time- or memory-hard function such as [[ARGON2](https://chris-wood.github.io/key-consistency/draft-wood-key-consistency.html#ARGON2)] to generate keys.\r\n-- https://chris-wood.github.io/key-consistency/draft-wood-key-consistency.html#section-6.2-2\r\n\r\nThis is not entirely correct.  This requires that the key derivation occur on a per-message basis.  That could be clearer.",
+      "createdAt": "2022-06-16T02:52:05Z",
+      "updatedAt": "2022-06-22T18:48:17Z",
+      "closedAt": "2022-06-22T18:48:17Z",
+      "comments": []
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOFFM6Sc5TdMzW",
+      "title": "Mixing direct and proxy discovery",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/issues/24",
+      "state": "OPEN",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From @tfpauly\r\n\r\n> I wonder if it also would be worth mentioning mixing Direct Discovery \r\n> and Proxy Discovery \u2014 if you are OK to reveal your IP to the server, \r\n> then you could have one check through the proxy and one check without, \r\n> and it might have similar properties (if I\u2019m not missing anything).",
+      "createdAt": "2022-10-06T18:59:16Z",
+      "updatedAt": "2022-10-06T18:59:16Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3MTk4MDE5",
+      "title": "Some suggestions",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/1",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "user-based is really server-based\r\n\r\nadd trusted assertion as one of the means of diversifying trust\r\n\r\nadd time-based considerations and minimum validity/rotation period",
+      "createdAt": "2021-02-21T23:04:09Z",
+      "updatedAt": "2021-02-21T23:31:50Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "master",
+      "baseRefOid": "a21d55b3d9c349376ef8a04041e0f75559790ae4",
+      "headRepository": null,
+      "headRefName": "proposals",
+      "headRefOid": "0e2ebc4634396fc1fd057c694658da5a0960361f",
+      "closedAt": "2021-02-21T23:31:50Z",
+      "mergedAt": "2021-02-21T23:31:50Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "b0448b196718aa99df0c6b576674b0d66cbd8476"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0ODk1MzYz",
+          "commit": {
+            "abbreviatedOid": "0e2ebc4"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-02-21T23:31:46Z",
+          "updatedAt": "2021-02-21T23:31:46Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3MTk4NDU3",
+      "title": "Fix references",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/2",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-21T23:06:56Z",
+      "updatedAt": "2021-02-21T23:31:04Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "master",
+      "baseRefOid": "a21d55b3d9c349376ef8a04041e0f75559790ae4",
+      "headRepository": null,
+      "headRefName": "2119",
+      "headRefOid": "5759ee28edf05346d6be304cfcfa01f60bd3f855",
+      "closedAt": "2021-02-21T23:31:04Z",
+      "mergedAt": "2021-02-21T23:31:04Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "ee3b01897fa59e100b53f5f95f5ba74b55d2bdc3"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0ODk1Mjkz",
+          "commit": {
+            "abbreviatedOid": "5759ee2"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-02-21T23:31:00Z",
+          "updatedAt": "2021-02-21T23:31:00Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3MjAyNjk4",
+      "title": "Add MT.",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/3",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-21T23:33:13Z",
+      "updatedAt": "2022-11-18T05:01:43Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "master",
+      "baseRefOid": "b0448b196718aa99df0c6b576674b0d66cbd8476",
+      "headRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "headRefName": "caw/add-mt",
+      "headRefOid": "def4c8e686434e1046a11d3722acf0d2905369f4",
+      "closedAt": "2021-02-21T23:37:39Z",
+      "mergedAt": "2021-02-21T23:37:39Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "306c50ceecd5b4c47a053b08fe3ec313f0491875"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk0ODk1NjI5",
+          "commit": {
+            "abbreviatedOid": "def4c8e"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Sure, if you like.",
+          "createdAt": "2021-02-21T23:33:57Z",
+          "updatedAt": "2021-02-21T23:33:57Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3NzQ0NjA2",
+      "title": "Extra details around privacy pass, and some typos",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/4",
+      "state": "MERGED",
+      "author": "alxdavids",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I added some very small clarifications around privacy pass related things, and fixed some small typos. Overall, I think this resource will really helpful for guiding these discussions in other WGs. I think it would be worthwhile raising this document at the PP WG meeting as part of the issuer selection/centralisation theme.\r\n\r\n(@chris-wood as you mentioned out-of-band, I've also added myself as an author. If you'd prefer me to have some less formalised contributing arrangement, I'd still be happy to help out :+1:) ",
+      "createdAt": "2021-02-22T15:54:18Z",
+      "updatedAt": "2022-11-18T05:01:44Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "master",
+      "baseRefOid": "306c50ceecd5b4c47a053b08fe3ec313f0491875",
+      "headRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "headRefName": "alxdavids/pp-edits",
+      "headRefOid": "a2a1770c2c713396c52b91c48a615eddd1d90e4c",
+      "closedAt": "2021-02-22T16:04:09Z",
+      "mergedAt": "2021-02-22T16:04:09Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "3f73eda01eb28ed1f099cb47baacedb68bcfc441"
+      },
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Team effort! Thank you!",
+          "createdAt": "2021-02-22T16:04:06Z",
+          "updatedAt": "2021-02-22T16:04:06Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc3OTc0ODc4",
+      "title": "Minor edits and adding Consensus-based model",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/5",
+      "state": "CLOSED",
+      "author": "sysrqb",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-02-22T22:05:50Z",
+      "updatedAt": "2021-02-22T23:02:53Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "master",
+      "baseRefOid": "3f73eda01eb28ed1f099cb47baacedb68bcfc441",
+      "headRepository": null,
+      "headRefName": "initialedits_00",
+      "headRefOid": "b28b389d3730c5fd2afe7245a19dc4e739ddcadc",
+      "closedAt": "2021-02-22T23:02:53Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1ODMzNjQ3",
+          "commit": {
+            "abbreviatedOid": "a31c0cb"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "LGTM -- @sysrqb, do you want to add yourself as an author?",
+          "createdAt": "2021-02-22T22:12:55Z",
+          "updatedAt": "2021-02-22T22:12:55Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTc4MDAyMDQx",
+      "title": "Minor edits and adding Consensus-based model",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/6",
+      "state": "MERGED",
+      "author": "sysrqb",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Replaced #5 ",
+      "createdAt": "2021-02-22T23:01:54Z",
+      "updatedAt": "2021-02-22T23:05:15Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "master",
+      "baseRefOid": "3f73eda01eb28ed1f099cb47baacedb68bcfc441",
+      "headRepository": "sysrqb/key-consistency-1",
+      "headRefName": "initialedits_01",
+      "headRefOid": "b28b389d3730c5fd2afe7245a19dc4e739ddcadc",
+      "closedAt": "2021-02-22T23:05:14Z",
+      "mergedAt": "2021-02-22T23:05:14Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "b0fe7ab734cf25b6758b24cd1fc68246ec4a9229"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NTk1ODY2NTU4",
+          "commit": {
+            "abbreviatedOid": "b28b389"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-02-22T23:05:10Z",
+          "updatedAt": "2021-02-22T23:05:10Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTkwOTM3NzIy",
+      "title": "Rearrange and collapse similar discovery mechanisms.",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/7",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-03-11T15:08:43Z",
+      "updatedAt": "2022-11-18T05:01:45Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "master",
+      "baseRefOid": "3cdbe68cbf091528764e9255efba3f348191042f",
+      "headRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "headRefName": "caw/restructure-and-collapse",
+      "headRefOid": "ce99e99c87b52eb83e0dc8fa8a2cda307bf507f4",
+      "closedAt": "2021-03-19T16:01:36Z",
+      "mergedAt": "2021-03-19T16:01:36Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "b62a476cafe13c5342d50e1f9348f3990000e020"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjA5ODgyNjU0",
+          "commit": {
+            "abbreviatedOid": "9a78907"
+          },
+          "author": "alxdavids",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-11T15:22:02Z",
+          "updatedAt": "2021-03-11T15:24:26Z",
+          "comments": [
+            {
+              "originalPosition": 37,
+              "body": "```suggestion\r\n## Single Proxy Discovery {#proxy-based}\r\n```",
+              "createdAt": "2021-03-11T15:22:02Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            },
+            {
+              "originalPosition": 192,
+              "body": "I'm not sure how this is different from the previous example?",
+              "createdAt": "2021-03-11T15:24:19Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjA5ODkzOTIw",
+          "commit": {
+            "abbreviatedOid": "b265787"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-11T15:31:08Z",
+          "updatedAt": "2021-03-11T15:31:09Z",
+          "comments": [
+            {
+              "originalPosition": 192,
+              "body": "Fair point -- PIR is more about how one *accesses* the table, rather than the contents of the table itself. We could maybe pull PIR out into its own discovery mechanism, then? Not sure.",
+              "createdAt": "2021-03-11T15:31:09Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwMTExNjcx",
+          "commit": {
+            "abbreviatedOid": "b265787"
+          },
+          "author": "sysrqb",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-11T18:46:21Z",
+          "updatedAt": "2021-03-11T18:59:45Z",
+          "comments": [
+            {
+              "originalPosition": 180,
+              "body": "Small nit: s/achieve/achieved/",
+              "createdAt": "2021-03-11T18:46:21Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            },
+            {
+              "originalPosition": 192,
+              "body": "The original goal was describing how to safely query a database either locally or remotely, where the client does not leak/reveal to a third-party which entry they want from the database. These two paragraphs were focused on the trade-off of the two solutions. However, in both of these designs, an entry includes some guarantee that it was considered \"correct\" by whatever-consensus-protocol was used (maybe multiple signatures, or a threshold signature, or another mechanism entirely).\r\n\r\nWith that being said, \"a third-party database\" could be broken out into a separate discovery mechanism, like \"Indirect Discovery\" :) And I think this would have roughly the same criteria as \"Direct Discovery\".",
+              "createdAt": "2021-03-11T18:55:39Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwMTg0MTkx",
+          "commit": {
+            "abbreviatedOid": "b265787"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-11T20:14:19Z",
+          "updatedAt": "2021-03-11T20:14:20Z",
+          "comments": [
+            {
+              "originalPosition": 180,
+              "body": "```suggestion\r\n  the correct binding of server names and key material. In this model the agreement is achieved via a consensus\r\n```",
+              "createdAt": "2021-03-11T20:14:19Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwMTg0OTQ0",
+          "commit": {
+            "abbreviatedOid": "b265787"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-11T20:15:20Z",
+          "updatedAt": "2021-03-11T20:15:21Z",
+          "comments": [
+            {
+              "originalPosition": 192,
+              "body": "How is \"indirect discovery\" different from \"database discovery\"? (I like your term *a lot* more!)",
+              "createdAt": "2021-03-11T20:15:20Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwMTk5MjM3",
+          "commit": {
+            "abbreviatedOid": "44bd1ca"
+          },
+          "author": "sysrqb",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-11T20:33:17Z",
+          "updatedAt": "2021-03-11T20:33:17Z",
+          "comments": [
+            {
+              "originalPosition": 192,
+              "body": "Ah! That's a really good question. I guess I forgot these were all combined under a single \"Database Discovery\" model, and I think they are not different :slightly_smiling_face:\r\n\r\nI guess I could be clearer by saying PIR fits under \"consensus-based\" and \"trusted third-party\"? For consensus-based, we have the current text. For \"third-party\" we have basically \"single-proxy discovery\" as above except the \"proxy\" only provides the key and then the client connects to the destination server through another path (directly or another proxy or however else).",
+              "createdAt": "2021-03-11T20:33:17Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwMjAxNDc4",
+          "commit": {
+            "abbreviatedOid": "44bd1ca"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-11T20:36:07Z",
+          "updatedAt": "2021-03-11T20:36:08Z",
+          "comments": [
+            {
+              "originalPosition": 192,
+              "body": "Yeah, that might work. Let me give that a shot.",
+              "createdAt": "2021-03-11T20:36:07Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwNDAyOTI0",
+          "commit": {
+            "abbreviatedOid": "d0e69d8"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-12T02:29:12Z",
+          "updatedAt": "2021-03-12T02:29:12Z",
+          "comments": [
+            {
+              "originalPosition": 192,
+              "body": "@sysrqb okay, rewritten somewhat. The PIR text now applies to a generic database, as intended (I think). What do you think?",
+              "createdAt": "2021-03-12T02:29:12Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwNDQ0MjA0",
+          "commit": {
+            "abbreviatedOid": "d0e69d8"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-12T04:36:10Z",
+          "updatedAt": "2021-03-12T04:48:43Z",
+          "comments": [
+            {
+              "originalPosition": 54,
+              "body": "Maybe use an ellipsis (\u2026) here instead?  ",
+              "createdAt": "2021-03-12T04:36:11Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            },
+            {
+              "originalPosition": 51,
+              "body": "```suggestion\r\n\u2502  Client  \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u25ba  Proxy   \u251c\u2500\u2500\u2500\u2500\u2500\u2500\u25ba Server  \u2502\r\n```",
+              "createdAt": "2021-03-12T04:36:40Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            },
+            {
+              "originalPosition": 55,
+              "body": "```suggestion\r\n```\r\nThree should do.",
+              "createdAt": "2021-03-12T04:38:11Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            },
+            {
+              "originalPosition": 177,
+              "body": "```suggestion\r\n  may impede deployment in practice. Experience with Certificate Transparency shows \r\n  that most implementations have chosen not to check SignedCertificateTimestamps before\r\n  using (that is, accepting as valid) a corresponding TLS certificate.\r\n```",
+              "createdAt": "2021-03-12T04:42:30Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            },
+            {
+              "originalPosition": 184,
+              "body": "A forward reference to the next section might be OK.  That is, there is no need for the re-retrieval period to be short as new keys cannot be added very quickly.",
+              "createdAt": "2021-03-12T04:45:32Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            },
+            {
+              "originalPosition": 189,
+              "body": "I'm not sure that having a large number of users is a particular problem here based on our experience with CRLite and other such things.  As the update period can be relatively long, the cost of periodic updates should be manageable.  At most, you are talking about key record updates that occur on a similar period to software update checks (assuming reasonable practices there also).",
+              "createdAt": "2021-03-12T04:47:52Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            },
+            {
+              "originalPosition": 193,
+              "body": "You already talked about PIR.  Maybe reconcile the two somehow.",
+              "createdAt": "2021-03-12T04:48:39Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwOTI3NzM2",
+          "commit": {
+            "abbreviatedOid": "4097d0d"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-12T16:00:48Z",
+          "updatedAt": "2021-03-12T16:00:48Z",
+          "comments": [
+            {
+              "originalPosition": 189,
+              "body": "\ud83d\udc4d  I removed this bit.",
+              "createdAt": "2021-03-12T16:00:48Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwOTI3ODU4",
+          "commit": {
+            "abbreviatedOid": "4097d0d"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-12T16:00:56Z",
+          "updatedAt": "2021-03-12T16:00:56Z",
+          "comments": [
+            {
+              "originalPosition": 193,
+              "body": "Oops, yes, thanks. IETF foggyness.",
+              "createdAt": "2021-03-12T16:00:56Z",
+              "updatedAt": "2021-03-12T16:04:27Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwOTMxMTk5",
+          "commit": {
+            "abbreviatedOid": "ce99e99"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-12T16:04:27Z",
+          "updatedAt": "2021-03-12T16:04:28Z",
+          "comments": [
+            {
+              "originalPosition": 184,
+              "body": "Yep, done!",
+              "createdAt": "2021-03-12T16:04:27Z",
+              "updatedAt": "2021-03-12T16:04:28Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjEwOTMyNjA2",
+          "commit": {
+            "abbreviatedOid": "ce99e99"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2021-03-12T16:05:58Z",
+          "updatedAt": "2021-03-12T16:05:58Z",
+          "comments": [
+            {
+              "originalPosition": 54,
+              "body": "Eh, I left this as-is for now. We can clean it up later if it's bothersome to others.",
+              "createdAt": "2021-03-12T16:05:58Z",
+              "updatedAt": "2021-03-12T16:05:58Z"
+            }
+          ]
+        },
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjE1OTgzMjAy",
+          "commit": {
+            "abbreviatedOid": "ce99e99"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "PIR!",
+          "createdAt": "2021-03-19T00:51:35Z",
+          "updatedAt": "2021-03-19T00:51:35Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTk4MjE4OTk3",
+      "title": "Update draft-wood-key-consistency.md",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/8",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-03-22T17:42:22Z",
+      "updatedAt": "2022-11-18T05:01:46Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "master",
+      "baseRefOid": "b62a476cafe13c5342d50e1f9348f3990000e020",
+      "headRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "headRefName": "chris-wood-patch-1",
+      "headRefOid": "13a80082d928cfca13ab192c62e69fcff6f30412",
+      "closedAt": "2021-03-22T17:42:26Z",
+      "mergedAt": "2021-03-22T17:42:26Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "9e2fbc1703f137c66299f77268c458f192dcfff5"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "MDExOlB1bGxSZXF1ZXN0NTk4MzgxNTk3",
+      "title": "Add token encryption",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/10",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This isn't revolutionary stuff.  It's a little light on detail, but I think that is consistent with the rest of the document.\r\n\r\nConcretely, I imagine that this would be something in the form of `salt || aead(n, k, token)`, where `n` and `k` are derived using something like `kdf(salt, key_config, label, L)`.",
+      "createdAt": "2021-03-22T22:31:18Z",
+      "updatedAt": "2021-03-25T13:20:39Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "9e2fbc1703f137c66299f77268c458f192dcfff5",
+      "headRepository": "martinthomson/key-consistency",
+      "headRefName": "encrypt",
+      "headRefOid": "eb5092516f59182e6b103bcd2df4c5ce6b9bb749",
+      "closedAt": "2021-03-25T13:20:39Z",
+      "mergedAt": "2021-03-25T13:20:39Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "933be7c86e6b4315bc8cd23b7abfdfff09346ae0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NjIxMTAxMTA0",
+          "commit": {
+            "abbreviatedOid": "eb50925"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-03-25T13:20:35Z",
+          "updatedAt": "2021-03-25T13:20:35Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "MDExOlB1bGxSZXF1ZXN0NzEzMDM1NzAw",
+      "title": "Some edits",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/11",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I found some of the introductory pieces a little hard to follow.\r\n\r\nThe general thrust here is that we want to add \"consistency\" without\r\nsacrificing \"correctness\".  But the definitions were a little heavy on\r\nthe latter.  I think that we can lean more on the fact that\r\nlosing \"correctness\" is more obviously bad.\r\n\r\nI added some paragraph breaks  and fixed a bad reference.",
+      "createdAt": "2021-08-16T00:54:30Z",
+      "updatedAt": "2021-08-16T14:39:36Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "933be7c86e6b4315bc8cd23b7abfdfff09346ae0",
+      "headRepository": "martinthomson/key-consistency",
+      "headRefName": "edits",
+      "headRefOid": "0d61441def7d80327a47f0fa14cd6d8ce71370aa",
+      "closedAt": "2021-08-16T14:39:36Z",
+      "mergedAt": "2021-08-16T14:39:36Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "d910138c988bb0357edf7a6bb73ca9ae3b4799a2"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzMwNzk0NTI1",
+          "commit": {
+            "abbreviatedOid": "6c49edd"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-08-16T14:38:20Z",
+          "updatedAt": "2021-08-16T14:39:27Z",
+          "comments": [
+            {
+              "originalPosition": 50,
+              "body": "```suggestion\r\nkey could be used to learn targeted information about the user.  Users\r\n```",
+              "createdAt": "2021-08-16T14:38:20Z",
+              "updatedAt": "2021-08-16T14:39:27Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "MDExOlB1bGxSZXF1ZXN0NzEzMDkzNzg0",
+      "title": "More about verification before use",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/14",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "A lot of the emphasis on the draft is in finding ways to acquire keys\r\nthat are consistent.  It might be easier use a simpler protocol for\r\nacquisition, which might make correctness easier to prove, then seek\r\nseparate ways of ensuring consistency.\r\n\r\nThis change does a little restructuring along those lines.  It probably\r\nneeds a deeper edit than this, but I thought that I'd try to get the\r\nideas down.",
+      "createdAt": "2021-08-16T03:56:41Z",
+      "updatedAt": "2021-08-18T00:58:17Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "933be7c86e6b4315bc8cd23b7abfdfff09346ae0",
+      "headRepository": "martinthomson/key-consistency",
+      "headRefName": "verify-on-use",
+      "headRefOid": "1f1ca782fbe2b377aa08452919c11b87b3329a09",
+      "closedAt": "2021-08-16T15:24:09Z",
+      "mergedAt": "2021-08-16T15:24:09Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "092a506700909b72cf6f37d5f1d9988165616146"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzMwODQ2MTMw",
+          "commit": {
+            "abbreviatedOid": "1f1ca78"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-08-16T15:24:02Z",
+          "updatedAt": "2021-08-16T15:24:02Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "MDExOlB1bGxSZXF1ZXN0NzEzMDk0NDI4",
+      "title": "chmod -x",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/15",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2021-08-16T03:59:04Z",
+      "updatedAt": "2021-08-16T14:36:56Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "933be7c86e6b4315bc8cd23b7abfdfff09346ae0",
+      "headRepository": "martinthomson/key-consistency",
+      "headRefName": "chmod-x",
+      "headRefOid": "2925556a7f259e663b20d838b11cd309c212d3bb",
+      "closedAt": "2021-08-16T14:36:56Z",
+      "mergedAt": "2021-08-16T14:36:56Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "2af5be427a159f0d06d1f89fd1ab1444bca4a717"
+      },
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Well that's interesting.",
+          "createdAt": "2021-08-16T14:36:52Z",
+          "updatedAt": "2021-08-16T14:36:52Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "MDE3OlB1bGxSZXF1ZXN0UmV2aWV3NzMwNzkyNjgw",
+          "commit": {
+            "abbreviatedOid": "2925556"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2021-08-16T14:36:46Z",
+          "updatedAt": "2021-08-16T14:36:46Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOFFM6Sc4z-Da0",
+      "title": "Edits, updates, clarifications",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/16",
+      "state": "MERGED",
+      "author": "sysrqb",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- Update OHTTP's reference to be the adopted draft\r\n- Fix some minor typos\r\n- Clarify the use of `key` - it was overloaded when talking about consistency and correctness.\r\n- Clarify that `multi-proxy discovery` is not (strictly) a generalization of `single proxy discovery`. Alternatively, we could generalize `single proxy discovery` (e.g., HTTP-Connect)  and add the special-case where the proxy is key-fetch-aware.\r\n- Clarify that in `database discovery` a client could use any mechanism for privately querying a database, and PIR is one example.",
+      "createdAt": "2022-03-04T18:24:14Z",
+      "updatedAt": "2022-03-04T19:05:23Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "a8b201c0b9e143db91ec697e2e22498be218021a",
+      "headRepository": "sysrqb/key-consistency-1",
+      "headRefName": "minor_edits",
+      "headRefOid": "943ef0e5e3c21ed2fb701e209b997e5ab6539875",
+      "closedAt": "2022-03-04T19:05:23Z",
+      "mergedAt": "2022-03-04T19:05:23Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "3c0461b58235c5419c80a367c0cb4d3b1f398fde"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOFFM6Sc41rhna",
+          "commit": {
+            "abbreviatedOid": "943ef0e"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Thanks! I'll submit and send to SECDISPATCH today.",
+          "createdAt": "2022-03-04T19:05:18Z",
+          "updatedAt": "2022-03-04T19:05:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOFFM6Sc40R4eq",
+      "title": "Fancy SVG diagrams",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/17",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-03-11T05:51:56Z",
+      "updatedAt": "2022-03-14T16:08:41Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "3c0461b58235c5419c80a367c0cb4d3b1f398fde",
+      "headRepository": "martinthomson/key-consistency",
+      "headRefName": "aasvg",
+      "headRefOid": "bfd7577eb12f89296487c4c9465cd89143718211",
+      "closedAt": "2022-03-14T16:08:40Z",
+      "mergedAt": "2022-03-14T16:08:40Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "7fb8c0cf3c65c48b044e29b6dc27c0e50b405e11"
+      },
+      "comments": [
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "[Preview](https://github.com/chris-wood/key-consistency/suites/5619469754/artifacts/182949593)",
+          "createdAt": "2022-03-11T05:53:08Z",
+          "updatedAt": "2022-03-11T05:53:08Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks!",
+          "createdAt": "2022-03-14T16:08:37Z",
+          "updatedAt": "2022-03-14T16:08:37Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOFFM6Sc46GKOt",
+      "title": "Update draft metadata",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/19",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We don't have a WG right now, so the tool I use commented it out.  We can probably keep the security area bit.",
+      "createdAt": "2022-06-22T07:23:21Z",
+      "updatedAt": "2022-06-22T18:47:01Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "7fb8c0cf3c65c48b044e29b6dc27c0e50b405e11",
+      "headRepository": "martinthomson/key-consistency",
+      "headRefName": "metadata",
+      "headRefOid": "cf2baf00a21b986450147899eb3ab24b65b8bd4c",
+      "closedAt": "2022-06-22T18:47:01Z",
+      "mergedAt": "2022-06-22T18:47:01Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "346770e13cb8ed44f7fa5e2c26ad98baa70b764d"
+      },
+      "comments": [
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "lol @ blockchain term",
+          "createdAt": "2022-06-22T18:46:57Z",
+          "updatedAt": "2022-06-22T18:46:57Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOFFM6Sc48iqfR",
+          "commit": {
+            "abbreviatedOid": "cf2baf0"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-06-22T18:46:47Z",
+          "updatedAt": "2022-06-22T18:46:47Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOFFM6Sc46GKir",
+      "title": "Fix inconsistent diagramming",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/20",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-06-22T07:24:30Z",
+      "updatedAt": "2022-06-22T18:46:22Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "7fb8c0cf3c65c48b044e29b6dc27c0e50b405e11",
+      "headRepository": "martinthomson/key-consistency",
+      "headRefName": "inconsistent-diagram",
+      "headRefOid": "91ec9c5b9b0d705ff726729d371426515e89234a",
+      "closedAt": "2022-06-22T18:46:22Z",
+      "mergedAt": "2022-06-22T18:46:21Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "f6f5b8218c21413564293959ef740e668dd88b40"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOFFM6Sc48iqW-",
+          "commit": {
+            "abbreviatedOid": "91ec9c5"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-06-22T18:46:18Z",
+          "updatedAt": "2022-06-22T18:46:18Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOFFM6Sc46GMlA",
+      "title": "Per-message key derivation",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/21",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is needed if you want to increase the cost of trial decryption.\r\nOtherwise, the attacker just caches answers.\r\n\r\nCloses #18.",
+      "createdAt": "2022-06-22T07:30:27Z",
+      "updatedAt": "2022-06-22T18:48:17Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "7fb8c0cf3c65c48b044e29b6dc27c0e50b405e11",
+      "headRepository": "martinthomson/key-consistency",
+      "headRefName": "issue18",
+      "headRefOid": "21b0692ac8fb989577a586631e706ee41ee35c15",
+      "closedAt": "2022-06-22T18:48:17Z",
+      "mergedAt": "2022-06-22T18:48:17Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "58af7b0cf9362e1b687276508d129a40e0e394ad"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOFFM6Sc48iq4L",
+          "commit": {
+            "abbreviatedOid": "21b0692"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Yeah, nice change. \ud83d\udc4d ",
+          "createdAt": "2022-06-22T18:48:13Z",
+          "updatedAt": "2022-06-22T18:48:13Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOFFM6Sc46hG0i",
+      "title": "Add cautionary text around use of Tor proxies",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/22",
+      "state": "MERGED",
+      "author": "ShivanKaul",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-06-28T18:44:25Z",
+      "updatedAt": "2022-08-17T13:51:39Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "58af7b0cf9362e1b687276508d129a40e0e394ad",
+      "headRepository": "ShivanKaul/key-consistency",
+      "headRefName": "patch-1",
+      "headRefOid": "1d3cabad41ecdef6d82a023675deeb1b812edc4b",
+      "closedAt": "2022-08-17T13:51:39Z",
+      "mergedAt": "2022-08-17T13:51:39Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "13d0050525bfe9c44c1a847d3024868355efd0ed"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOFFM6Sc5AHvW8",
+          "commit": {
+            "abbreviatedOid": "1d3caba"
+          },
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2022-08-17T13:51:36Z",
+          "updatedAt": "2022-08-17T13:51:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOFFM6Sc48mI_5",
+      "title": "Add DoubleCheck as an explicit variant",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/23",
+      "state": "MERGED",
+      "author": "chris-wood",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2022-08-03T17:37:40Z",
+      "updatedAt": "2022-11-18T05:01:47Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "13d0050525bfe9c44c1a847d3024868355efd0ed",
+      "headRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "headRefName": "caw/add-double-check",
+      "headRefOid": "0d633790fee19a84f1dc6790a22ab0eaba73ffe7",
+      "closedAt": "2022-08-17T14:07:40Z",
+      "mergedAt": "2022-08-17T14:07:40Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "5f27d59dc60dd60b218f589790f6f6fbc048101d"
+      },
+      "comments": [
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Oh, I forgot.  I don't think that \"untrusted\" is a good label here.  This requires less trust than the other arrangement, but you still need to trust that the proxy doesn't collude with the server.",
+          "createdAt": "2022-08-03T23:19:43Z",
+          "updatedAt": "2022-08-03T23:19:43Z"
+        },
+        {
+          "author": "chris-wood",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> Do you want to talk about the reason that this is a connect tunnel using the same proxy? I think that this is a central piece of Ben's draft. The idea is that the proxy is integral to the design as that proxy is later used for protocol interactions that use the KCCS target. Because use of the proxy is part of the overall configuration that can be used to distinguish users, this arrangement doesn't expand the threat profile for users.\r\n\r\nI don't agree with the requirement to use the same proxy for the connect tunnel, so I left that part out. (See OHAI mailing list.)\r\n\r\n> Oh, I forgot. I don't think that \"untrusted\" is a good label here. This requires less trust than the other arrangement, but you still need to trust that the proxy doesn't collude with the server.\r\n\r\nYeah, I couldn't think of a better label for it. Maybe we go with something like \"Single Proxy with Key Confirmation\"?",
+          "createdAt": "2022-08-04T13:37:05Z",
+          "updatedAt": "2022-08-04T13:37:05Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOFFM6Sc4_Pyoy",
+          "commit": {
+            "abbreviatedOid": "3b3b909"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "Do you want to talk about the reason that this is a connect tunnel using the same proxy?  I think that this is a central piece of Ben's draft.  The idea is that the proxy is integral to the design as that proxy is later used for protocol interactions that use the KCCS target.  Because use of the proxy is part of the overall configuration that can be used to distinguish users, this arrangement doesn't expand the threat profile for users.",
+          "createdAt": "2022-08-03T23:13:40Z",
+          "updatedAt": "2022-08-03T23:18:22Z",
+          "comments": [
+            {
+              "originalPosition": 58,
+              "body": "```suggestion\r\n|          +============================>+          |\r\n|          |         |           |       |          |\r\n```\r\n\r\nSometimes you need to test aasvg to see what it produces.",
+              "createdAt": "2022-08-03T23:13:40Z",
+              "updatedAt": "2022-08-03T23:18:22Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "id": "PR_kwDOFFM6Sc5DLFwY",
+      "title": "Fix setup",
+      "url": "https://github.com/ietf-wg-privacypass/draft-ietf-privacypass-key-consistency/pull/25",
+      "state": "MERGED",
+      "author": "martinthomson",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "A few things were left in a poor state after the adoption.  This should do the trick.",
+      "createdAt": "2022-11-18T04:59:06Z",
+      "updatedAt": "2022-12-14T23:24:36Z",
+      "baseRepository": "ietf-wg-privacypass/draft-ietf-privacypass-key-consistency",
+      "baseRefName": "main",
+      "baseRefOid": "6e8b31b85a994f3d5f697b73326eb53c88e86ebe",
+      "headRepository": "martinthomson/key-consistency",
+      "headRefName": "fix-setup",
+      "headRefOid": "40f34b2a70e8adb9947f4e2801eeab78648a2ad9",
+      "closedAt": "2022-12-14T12:00:10Z",
+      "mergedAt": "2022-12-14T12:00:10Z",
+      "mergedBy": "chris-wood",
+      "mergeCommit": {
+        "oid": "e6f09bbe85895dcc9be88b21fde50cd5127af721"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
