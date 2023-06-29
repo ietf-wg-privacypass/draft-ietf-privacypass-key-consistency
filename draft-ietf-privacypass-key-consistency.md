@@ -49,7 +49,7 @@ author:
 
 normative:
 informative:
-  ODOH: I-D.pauly-dprive-oblivious-doh
+  ODOH: RFC9230
   PRIVACY-PASS: I-D.ietf-privacypass-protocol
   PRIVACY-PASS-ARCH: I-D.ietf-privacypass-architecture
   OHTTP: I-D.ietf-ohai-ohttp
@@ -57,10 +57,10 @@ informative:
 
 --- abstract
 
-This document describes the key consistency and correctness requirements of protocols such as
-Privacy Pass, Oblivious DoH, and Oblivious HTTP for user privacy. It discusses several mechanisms
-and proposals for enabling user privacy in varying threat models. In concludes with discussion
-of open problems in this area.
+This document describes the consistency requirements of protocols such as
+Privacy Pass, Oblivious DoH, and Oblivious HTTP for user privacy. It presents
+definitions for consistency and then surveys mechanisms for providing consistency
+in varying threat models. In concludes with discussion of open problems in this area.
 
 --- middle
 
@@ -69,19 +69,27 @@ of open problems in this area.
 Several proposed privacy-enhancing protocols such as Privacy Pass
 {{PRIVACY-PASS}}, Oblivious DoH {{ODOH}}, and Oblivious HTTP {{OHTTP}} require
 clients to obtain and use a public key for execution. For example, Privacy Pass
-public keys are used by clients for validating privately issued tokens for
-anonymous session resumption. Oblivious DoH and HTTP both use public keys to
-encrypt messages to a particular server.
+public keys are used by clients when issuing and redeeming tokens for anonymous
+authorization. Oblivious DoH and HTTP both use public keys to encrypt messages
+to a particular server.
 
-User privacy in these systems depends on users receiving a key that many, if not
-all, other users receive.  If a user were to receive a public key that was
-specific to them, or restricted to a small set of users, then use of that public
-key could be used to learn targeted information about the user.  Users
-also need to receive the correct public key.
+Privacy in these systems depends on clients using an authenticated key that many,
+if not all, other clients use. If a client were to receive a public key that was
+specific to them, or restricted to a small set of clients, then use of that public
+key could be used to learn targeted information about the client. Informally,
+using the same key is referred to as key consistency. The degree to which clients
+use consistent keys determines the extent to which use of a particular key can
+compromise their individual privacy. This document provides definitions for key
+consistency that captures this concept.
 
-In this document, we elaborate on these core requirements, and survey various system designs that might
-be used to satisfy them. The purpose of this document is to highlight challenges in building and deploying
-solutions to this problem.
+Depending on the type of consistency, the design space for building key consistency
+solutions can be large. This document surveys several common approaches to solving
+this problem and describes the consistency properties they purport to provide under
+various threat models.
+
+The purpose of this document is twofold: (1) provide a foundation upon which technical
+solutions can be specified and evaluated, and (2) highlight challenges in building and
+deploying key consistency solutions in practice.
 
 ## Requirements
 
@@ -91,59 +99,97 @@ solutions to this problem.
 
 This document defines the following terms:
 
-Key Consistency and Correctness System (KCCS):
-: A mechanism for providing clients with a consistent view of cryptographic key material within a period of time.
-
 Reliant System:
-: A system that embeds one or more key consistency and correctness systems.
+: A system that embeds one or more key consistency systems.
 
-The KCCS's consistency model is dependent on the implementation and reliant system's threat model.
+Key:
+: A cryptographic object used by a reliant system.
 
-# Core Requirements {#reqs}
+Key Identifier (Key ID):
+: A unique identifier for a key.
+
+Key Set:
+: A set of one or more keys.
+
+Key Set Identifier (Set ID):
+: A unique identifier for a key set.
+
+Client:
+: An entity that uses a key in a reliant system.
+
+Source:
+: An entity that provides key material for use by clients.
+
+The key consistency model is dependent on the implementation and reliant system's threat model.
+
+# Consistency Requirements {#reqs}
 
 Privacy-focused protocols which rely on widely shared public keys typically
-require keys be consistent and correct. Informally, key consistency is the
-requirement that all users who communicate with an entity share the same view
-of the key associated with that entity; key correctness is that the key's
-secret information is controlled by the intended entity and is not known to be
-available to an external attacker.
+require keys be consistent. Informally, key consistency is the
+requirement that all clients who use a source-provided key in some reliant system
+share the same view of the key. Some protocols depend on large sets of clients
+with consistent keys for privacy reasons. Specifically, all clients with a
+consistent key represent an anonymity set wherein each client of the key in
+that set is indistinguishable from the rest. An attacker that can actively
+cause inconsistent views of keys can therefore compromise client privacy.
 
-Some protocols depend on large sets of users with consistent keys for privacy
-reasons. Specifically, all users with a consistent key represent an anonymity
-set wherein each user of the key in that set is indistinguishable from the
-rest. An attacker that can actively cause inconsistent views of keys can
-therefore compromise user privacy.
+## Consistency Definitions
 
-An attacker that can cause a user to use an incorrect key will likely compromise
-the entire protocol, not just privacy.
+Formally, consistency is a predicate defined based on key sets. Typically, clients
+try to assess consistency of one key against one or more keys, but there are
+no restrictions on whether the clients holding those keys are the same.
 
-Reliant systems must also consider agility when trying to satisfy these requirements. A naive solution to
-ensuring consistent and correct keys is to only use a single, fixed key pair for the entirety of
-the system. Users can then embed this key into software or elsewhere as needed, without any additional
-mechanics or controls to ensure that other users have a different key. However, this solution clearly
+There are two different predicates for consistency, defined below.
+
+- Consistency: Two key sets with the same set ID are consistent iff the intersection
+  of key IDs for each set is non-empty.
+- Global consistency: A key set is globally consistent iff, for all key sets with the
+  same set ID, the set of key IDs intersects with the key IDs of the candidate key set.
+
+Checking for consistency or global consistency of two sets of key sets (singletons or not)
+consists in applying a verification function to those sets. If the two sets are consistent
+and the union of those two sets is equal to the set of all possible honestly generated values,
+then the union is globally consistent.
+
+Consistency checks can happen within a reliant system or out of it. We refer to these
+two paths as in-band and out-of-band verification. In-band verification is a check
+which is invoked as part of a reliant system. This type of verification is only achieved
+by participants of the reliant system. In contrast, out-of-band verifiability is a check
+that happens outside of a reliant system, i.e., by entities that may not be participants
+of the reliant system. Consistency verification is typically public, meaning that any entity
+with two key sets can verify (global) consistency without requiring knowledge of a
+cryptographic secret.
+
+Reliant systems must also consider agility when trying to achieve consistency. A naive solution to
+ensuring consistent keys is to only use a single, fixed key pair for the entirety of the system.
+Clients can then embed this key into software or elsewhere as needed, without any additional
+mechanics or controls to ensure that other clients have a different key. However, this solution clearly
 is not viable in practice. If the corresponding key is compromised, the system fails. Rotation must
-therefore be supported, and in doing so, users need some mechanism to ensure that newly rotated
-keys are consistent and correct.
+therefore be supported, and in doing so, clients need some mechanism to ensure that newly rotated
+keys are consistent.
 
-Operationally, servers rotating keys may likely need to accommodate
-distributed system state-synchronization issues without sacrificing availability. Some systems and protocols
-may choose to prioritize strong consistency over availability, but this document assumes that availability
-is preferred to total consistency.
+Operationally, servers rotating keys may likely need to accommodate distributed system
+state-synchronization issues without sacrificing availability. Some systems and protocols
+may choose to prioritize strong consistency over availability, but this document assumes
+that availability is preferred to total consistency.
 
-# Consistency and Correctness at Key Acquisition
+# Consistency Mechanisms
 
-There are a variety of ways in which reliant systems may build key consistency and correct systems (KCCS),
-ranging in operational complexity to ease-of-implementation. In this section, we survey a number of
-possible solutions. The viability of each varies depending on the applicable threat model, external
-dependencies, and overall reliant system's requirements.
+There are a variety of ways in which reliant systems may build key consistency solutions,
+ranging in operational complexity to ease-of-implementation. In this section, we survey
+a number of possible solutions. The viability of each varies depending on the applicable
+threat model, external dependencies, and overall reliant system's requirements.
 
-We do not include the fixed public key model from
-{{reqs}}, as this is likely not a viable solution for systems and protocols in practice. In all scenarios,
-the server corresponding to the desired key is considered malicious.
+In each mechanism, the client has as input a candidate key and seeks to determine
+if it has a (globally) consistent version of the key.
+
+We do not include the fixed public key model from {{reqs}}, as this is likely not a viable
+solution for systems and protocols in practice. In all scenarios, the server corresponding
+to the desired key is considered malicious.
 
 ## Direct Discovery {#server-based}
 
-In this model, users would directly query servers for their corresponding public key, as shown below.
+In this model, clients would directly query servers for their corresponding key, as shown below.
 
 ~~~ aasvg
 +----------+              +----------+
@@ -154,22 +200,14 @@ In this model, users would directly query servers for their corresponding public
 ~~~
 {: #fig-disc-direct title="Direct Discovery Example"}
 
-The properties of this solution depend on external mechanisms in place to ensure consistency or
-correctness. Absent any such mechanisms, servers can produce unique keys for users without detection.
-External mechanisms to ensure consistency here might include, though are not limited to:
+The properties of this mechanism depend on external mechanisms in place to ensure consistency
+and whether or not the server colludes with the key source. If the server and source collude,
+both can present unique per-client keys without detection.
 
-- Presenting a signed assertion from a trusted entity that the key is correct.
-- Presenting proof that the key is present in some tamper-proof log, similar to Certificate
-  Transparency ({{!RFC6962}}) logs.
-- User communication or gossip ensuring that all users have a shared view of the key.
+## Shared Cache Discovery {#cache-based}
 
-The precise external mechanism used here depends largely on the threat model. If there is a trusted
-external log for keys, this may be a viable solution.
-
-## Trusted Proxy Discovery {#proxy-based}
-
-In this model, there exists a trusted proxy that fetches keys from servers on behalf of multiple users, as shown
-below.
+In this model, there exists a shared cache that provides keys from servers on behalf of multiple
+clients, as shown below.
 
 ~~~ aasvg
 +----------+
@@ -180,7 +218,7 @@ below.
                        v
 +----------+         +----------+       +----------+
 |          |         |          |       |          |
-|  Client  +-------->+  Proxy   +------>+  Server  |
+|  Client  +-------->+  Cache   +------>+  Server  |
 |          |         |          |       |          |
 +----------+         +-+--------+       +----------+
       x                ^
@@ -191,27 +229,55 @@ below.
 |          |
 +----------+
 ~~~
-{: #fig-disc-proxy title="Single Proxy Discovery Example"}
+{: #fig-disc-proxy title="Shared Cache Discovery Example"}
 
-If this proxy is trusted, then all users which request a key from this server are assured they have
-a consistent view of the server key. However, if this proxy is not trusted, operational risks may arise:
+If this cache is trusted, then all clients which request a key from this server are assured they have
+a consistent view of the server key compared to all other clients of the cache.
 
-- The proxy can collude with the server to give per-user keys to clients.
-- The proxy can give all users a key owned by the proxy, and either collude with the server to use this
-  key or retroactively use this key to compromise user privacy when users later make use of the key.
+The validity window of the cache's response can impact the overall consistency guarantees.
+In particular, a system needs to ensure that a server cannot rotate its keys too often in order
+to divide clients into smaller groups based on when keys are acquired. Such considerations are
+already highlighted within the Privacy Pass ecosystem, more discussion can be found in {{PRIVACY-PASS-ARCH}}.
+Setting a minimum validity period limits the ability of a server to rotate keys, but also
+limits the rate of key rotation.
 
-Mitigating these risks can be done in a variety of ways. For example, clients may demand tamper-proof
-proof evidence that the key is consistent and correct for the server, using techniques described in {{server-based}}.
-Clients may gossip amongst themselves to determine if they are being served different keys.
-Alternatively, the clients may attempt to confirm the key provided by the proxy, as described in {{shared-proxy-with-confirmation}}.
+However, if this cache is not trusted, operational risks may arise:
 
-## Shared Proxy with Key Confirmation {#shared-proxy-with-confirmation}
+- The cache can collude with the server to give per-client keys to clients.
+- The cache can give all clients a key owned by the cache, and either collude with the server to use this
+  key or retroactively use this key to compromise client privacy when clients later make use of the key.
 
-Clients that retrieve keys through a single proxy can directly confirm the correctness of this key
-provided by the proxy by "checking" with the server. One variant of this checking mechanism is
-described in {{DOUBLECHECK}}. Briefly, clients connect directly to the server through some proxy
-(so as to hide their identity) and ask for the key. If this key does not match that provided by the
-shared proxy, the clients conclude that the key is malicious. This is shown in {{fig-disc-shared-proxy}}.
+## Cache Redundancy {#redundancy}
+
+There are several ways the risk of untrusted caches may be mitigated. The first of which is
+via the use of multiple, non-colluding caches, as shown below.
+
+~~~ aasvg
+                     +----------+
+                     |          |
+      +------------->+  Cache   +------------+
+      |              |          |            |
+      |              +----------+            |
+      |                                      v
++-----+----+         +----------+       +----+-----+
+|          |         |          |       |          |
+|  Client  +-------->+  Cache   +------>+  Server  |
+|          |         |          |       |          |
++-----+----+         +----------+       +----+-----+
+      |                    x                 ^
+      |                    x                 |
+      |              +----------+            |
+      |              |          |            |
+      +------------->+  Cache   +------------+
+                     |          |
+                     +----------+
+~~~
+{: #fig-disc-multi-proxy title="Multi-Cache Discovery Example"}
+
+This mechanism provides consistency across all clients that share the same set of caches.
+
+If no other caches are available, clients may attempt to confirm the key provided by the
+cache directly with the server, as shown in the figure below.
 
 ~~~ aasvg
 +----------+
@@ -221,10 +287,14 @@ shared proxy, the clients conclude that the key is malicious. This is shown in {
 +----------+           |
                        v
 +----------+         +-----------+       +----------+
-|          |         |  Shared   |       |          |
-|  Client  +-------->+   Proxy   +------>+  Server  |
 |          |         |           |       |          |
-|          +============================>+          |
+|  Client  +-------->+   Cache   +------>+  Server  |
+|          |         |           |       |          |
+|          |         +-----------+       |          |
+|          |                             |          |
+|          |         +-----------+       |          |
+|          |         |           |       |          |
+|          +============ Proxy  ========>+          |
 |          |         |           |       |          |
 +----------+         +-+---------+       +----------+
       x                ^
@@ -237,77 +307,36 @@ shared proxy, the clients conclude that the key is malicious. This is shown in {
 ~~~
 {: #fig-disc-shared-proxy title="Shared Proxy with Confirmation Discovery Example"}
 
-## Multi-Proxy Discovery {#anon-discovery}
-
-In this model, users leverage multiple, non-colluding proxies to fetch keys from servers, as shown below.
-
-~~~ aasvg
-                     +----------+
-                     |          |
-      +------------->+  Proxy   +------------+
-      |              |          |            |
-      |              +----------+            |
-      |                                      v
-+-----+----+         +----------+       +----+-----+
-|          |         |          |       |          |
-|  Client  +-------->+  Proxy   +------>+  Server  |
-|          |         |          |       |          |
-+-----+----+         +----------+       +----+-----+
-      |                    x                 ^
-      |                    x                 |
-      |              +----------+            |
-      |              |          |            |
-      +------------->+  Proxy   +------------+
-                     |          |
-                     +----------+
-~~~
-{: #fig-disc-multi-proxy title="Multi-Proxy Discovery Example"}
-
-These proxies are ideally spread across multiple vantage points. Examples of proxies include anonymous
-systems such as Tor. Tor proxies are general purpose and operate at a lower layer, on arbitrary
-communication flows, and therefore they are oblivious to clients fetching keys. A large set of untrusted
-proxies that are aware of key fetch requests ({{proxy-based}}) may be used in a similar way. Depending
-on how clients fetch such keys from servers, it may become
-more difficult for servers to uniquely target individual users with unique keys without detection.
-This is especially true as the number of users of these anonymity networks increases. However, beyond
+Ideally, clients confirm with the server via some anonymizing proxy. Examples of proxies
+include anonymous systems such as Tor. Tor proxies are general purpose and operate
+at a lower layer, on arbitrary communication flows, and therefore they are oblivious
+to clients fetching keys. A large set of untrusted proxies that are aware of key fetch
+requests ({{cache-based}}) may be used in a similar way. Depending on how clients
+fetch such keys from servers, it may become more difficult for servers to uniquely
+target individual clients with unique keys without detection. This is especially true
+as the number of clients of these anonymity networks increases. However, beyond
 Tor, there does not exist a special-purpose anonymity network for this purpose.
 
-Note that connecting to Tor proxies may not be a viable option (indeed, could even be dangerous) for
-clients operating in managed networks which scrutinize and/or ban Tor traffic.
+Querying a cache for its stored copy of a key leaks information to that cache.
+To mitigate this leak, clients could either obtain the contents of a cache and query
+it locally, or remotely query the cache using privacy-preserving queries (e.g., a private
+information retrieval (PIR) protocol). In the case where the cache is downloaded locally, it
+should be considered stale and re-fetched periodically. The frequency of such updates
+can likely be infrequent in practice, as frequent key updates or rotations may affect
+privacy. Downloading the entire database works best if there are a small number of
+entries, as it does not otherwise impose bandwidth costs on each client that may be
+impractical.
 
+## Cache Transparency {#transparency}
 
-## Database Discovery {#external-db-based}
+If redundancy is not viable or feasible for a particular deployment, consistency
+guarantees may also be improved through transparency systems, i.e., those based
+on tamper-proof, publicly verifiable data structures. Examples of this type of
+mitigation are below.
 
-In this model, servers publish keys in an external database and clients fetch keys from the database, as shown below.
-
-~~~ aasvg
-+----------+
-|          |
-|  Client  +-----------+
-|          |           |
-+----------+           |
-                       v
-+----------+         +-+--------+       +----------+
-|          |         |          |       |          |
-|  Client  +-------->+ Database +<------+  Server  |
-|          |         |          |       |          |
-+----------+         +-+--------+       +----------+
-     x                 ^
-     x                 |
-+----------+           |
-|          |           |
-|  Client  +-----------+
-|          |
-+----------+
-~~~
-{: #fig-disc-database title="Database Discovery Example"}
-
-The database is expected to have a table that asserts mappings between server names and keys. Examples
-of such databases are as follows:
-
-- An append-only, audited table similar to that of Certificate Transparency {{!RFC6962}}. The log is operated and
-  audited in such a way that the contents of the log are consistent for all users. Any reliant system
-  which depends on this type of KCCS requires the log be audited or users have some other mechanism for
+- An append-only, audited table similar to that of Certificate Transparency {{!RFC6962}}. The log is operated
+  and audited in such a way that the contents of the log are consistent for all clients. Any reliant system
+  which depends on this type of KCCS requires the log be audited or clients have some other mechanism for
   checking their view of the log state (gossiping). However, this type of system does not ensure proactive
   security against malicious servers unless log participants actively check log proofs. This requirement
   may impede deployment in practice. Experience with Certificate Transparency shows
@@ -318,60 +347,21 @@ of such databases are as follows:
   the correct binding of server names and key material. In this model the agreement is achieved via a consensus
   protocol, but the specific consensus protocol is dependent on the implementation.
 
-For privacy, users should either download the entire database and query it locally, or remotely query the database
-using privacy-preserving queries (e.g., a private information retrieval (PIR) protocol). In the case where the
-database is downloaded locally, it
-should be considered stale and re-fetched periodically. The frequency of such updates can likely be infrequent
-in practice, as frequent key updates or rotations may affect privacy; see {{validity-periods}} for details.
-Downloading the entire database works best if there are a small number of entries, as it does not otherwise
-impose bandwidth costs on each client that may be impractical.
+## Cache Key Limits
 
-# Minimum Validity Periods {#validity-periods}
-
-In addition to ensuring that there is one key at any time, or a limited number keys, any system
-needs to ensure that a server cannot rotate its keys too often in order to divide clients into
-smaller groups based on when keys are acquired. Such considerations are already highlighted within the
-Privacy Pass ecosystem, more discussion can be found at {{PRIVACY-PASS-ARCH}}. Setting a minimum validity
-period limits the ability of a server to rotate keys, but also limits the rate of key rotation.
-
-# Separate Consistency Verification
-
-The other schemes described here all attempt to directly limit the number of keys that a client
-might accept.  However, by changing how keys are used, clients can impose costs on servers that
-might discourage key diversity.
-
-Protocols that have distinctly separate processes for acquiring and using keys might benefit from
-moving consistency checks to the usage part of the protocol.  Correctness might be guaranteed
-through a relatively simple process, such obtaining keys directly from a server.  A separate
-correctness check is then applied before keys are used.
-
-## Independent Verification {#civ}
-
-Anonymous queries to verify key consistency can be used prior to use of keys.  A request for the
-current key (or limited set of keys) will reveal if the key that was acquired is different than the
-original.  If the key that was originally obtained is not included, the client can abort any use of
-the key.
-
-It is important that any validation process not carry any information that might tie it to the
-original key discovery process or that the system providing verification be trusted.  A proxy (see
-{{proxy-based}}) might be sufficient for providing anonymity, though more robust anonymity
-protections (see {{anon-discovery}}) could provide stronger guarantees.  Querying a database (see
-{{external-db-based}}) might provide independent verification if that database can be trusted not to
-provide answers that change based on client identity.
-
-## Key-Based Encryption {#kbe}
-
-Key-based encryption has a client encrypt the information that it sends to a server, such as a token
-or signed object generated with the server keys.  This encryption uses a key derived from the key
+Consistency may also be improved by forcibly limiting the number of keys that an attacker can feasibly
+use for targeting particular clients. One way to implement this limit is via key-based encryption,
+which is a procedure where a client encrypt the information that it sends to a server, such as a token
+or signed object generated with the server keys. This encryption uses a key derived from the key
 configuration, specifically not including any form of key identifier along with the encrypted
-information.  If key derivation for the encryption uses a pre-image resistant function (like HKDF),
-the server can only decrypt the information if it knows the key configuration.  As there is no
+information. If key derivation for the encryption uses a pre-image resistant function (like HKDF),
+the server can only decrypt the information if it knows the key configuration. As there is no
 information the server can use to identify which key was used, it is forced to perform trial
 decryption if it wants to use multiple keys.
 
-These costs are only linear in terms of the number of active keys.  This doesn't prevent the use of
-multiple keys; it only makes their use incrementally more expensive.  Adding a nonce with sufficient
-entropy might be used to force key derivation for every message.  Using a time- or memory-hard key
+These costs are only linear in terms of the number of active keys. This doesn't prevent the use of
+multiple keys; it only makes their use incrementally more expensive. Adding a nonce with sufficient
+entropy might be used to force key derivation for every message. Using a time- or memory-hard key
 derivation function such as {{?ARGON2=I-D.irtf-cfrg-argon2}} can then be used to increase the cost
 of trial decryption.
 
@@ -379,13 +369,14 @@ Encrypting this way could provide better latency properties than a separate chec
 
 # Future Work
 
-The model in {{anon-discovery}} seems to be the most lightweight and easy-to-deploy mechanism for
+The model in {{redundancy}} seems to be the most lightweight and easy-to-deploy mechanism for
 ensuring key consistency and correctness. However, it remains unclear if there exists such an
 anonymity network that can scale to the widespread adoption of and requirements of protocols like
 Privacy Pass, Oblivious DoH, or Oblivious HTTP. Also, using such a network carries its own set
-of risks for clients (as described in {{anon-discovery}}), so in some cases it might be impractical.
+of risks for clients (as described in {{redundancy}}), so in some cases it might be impractical.
 Existing infrastructure based on technologies like Certificate Transparency or Key Transparency
-may work, but there is currently no general purpose system for transparency of opaque keys (or other application data).
+may work, but there is currently no general purpose system for transparency of opaque keys (or
+other application data).
 
 # Security Considerations {#sec}
 
