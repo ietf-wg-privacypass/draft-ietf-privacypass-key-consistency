@@ -231,9 +231,6 @@ clients, as shown below.
 ~~~
 {: #fig-disc-proxy title="Shared Cache Discovery Example"}
 
-If this cache is trusted, then all clients which request a key from this server are assured they have
-a consistent view of the server key compared to all other clients of the cache.
-
 The validity window of the cache's response can impact the overall consistency guarantees.
 In particular, a system needs to ensure that a server cannot rotate its keys too often in order
 to divide clients into smaller groups based on when keys are acquired. Such considerations are
@@ -241,13 +238,27 @@ already highlighted within the Privacy Pass ecosystem, more discussion can be fo
 Setting a minimum validity period limits the ability of a server to rotate keys, but also
 limits the rate of key rotation.
 
-However, if this cache is not trusted, operational risks may arise:
+Querying a cache for its stored copy of a key leaks information to that cache.
+There are several mitigations for this leak. For example, clients could obtain the
+contents of a cache and query it locally. Alternatively, clients could remotely query
+the cache using privacy-preserving queries (e.g., a private information retrieval (PIR)
+protocol). In the case where the cache is downloaded locally, it should be considered
+stale and re-fetched periodically. The frequency of such updates can likely be infrequent
+in practice, as frequent key updates or rotations may affect privacy. Downloading the
+entire cache works best if there are a small number of entries, as it does not otherwise
+impose bandwidth costs on each client that may be impractical.
+
+If this cache is trusted, then all clients which request a key from this server are
+assured they have a consistent view of the server key compared to all other clients of
+the cache. If this cache is not trusted, operational risks may arise:
 
 - The cache can collude with the server to give per-client keys to clients.
 - The cache can give all clients a key owned by the cache, and either collude with the server to use this
   key or retroactively use this key to compromise client privacy when clients later make use of the key.
 
-## Cache Redundancy {#redundancy}
+Potential mitigations for untrusted caches are described in the following sections.
+
+### Cache Redundancy {#redundancy}
 
 There are several ways the risk of untrusted caches may be mitigated. The first of which is
 via the use of multiple, non-colluding caches, as shown below.
@@ -275,6 +286,8 @@ via the use of multiple, non-colluding caches, as shown below.
 {: #fig-disc-multi-proxy title="Multi-Cache Discovery Example"}
 
 This mechanism provides consistency across all clients that share the same set of caches.
+
+### Cache Confirmation {#confirmation}
 
 If no other caches are available, clients may attempt to confirm the key provided by the
 cache directly with the server, as shown in the figure below.
@@ -317,24 +330,14 @@ target individual clients with unique keys without detection. This is especially
 as the number of clients of these anonymity networks increases. However, beyond
 Tor, there does not exist a special-purpose anonymity network for this purpose.
 
-Querying a cache for its stored copy of a key leaks information to that cache.
-To mitigate this leak, clients could either obtain the contents of a cache and query
-it locally, or remotely query the cache using privacy-preserving queries (e.g., a private
-information retrieval (PIR) protocol). In the case where the cache is downloaded locally, it
-should be considered stale and re-fetched periodically. The frequency of such updates
-can likely be infrequent in practice, as frequent key updates or rotations may affect
-privacy. Downloading the entire database works best if there are a small number of
-entries, as it does not otherwise impose bandwidth costs on each client that may be
-impractical.
-
-## Cache Transparency {#transparency}
+### Cache Transparency {#transparency}
 
 If redundancy is not viable or feasible for a particular deployment, consistency
 guarantees may also be improved through transparency systems, i.e., those based
 on tamper-proof, publicly verifiable data structures. Examples of this type of
-mitigation are below.
+system are below.
 
-- An append-only, audited table similar to that of Certificate Transparency {{!RFC6962}}. The log is operated
+- An append-only, audited log similar to that of Certificate Transparency {{!RFC6962}}. The log is operated
   and audited in such a way that the contents of the log are consistent for all clients. Any reliant system
   which depends on this type of KCCS requires the log be audited or clients have some other mechanism for
   checking their view of the log state (gossiping). However, this type of system does not ensure proactive
@@ -343,11 +346,11 @@ mitigation are below.
   that most implementations have chosen not to check SignedCertificateTimestamps before
   using (that is, accepting as valid) a corresponding TLS certificate.
 
-- A consensus-based table whose assertions are created by a coalition of entities that periodically agree on
+- A consensus-based log whose assertions are created by a coalition of entities that periodically agree on
   the correct binding of server names and key material. In this model the agreement is achieved via a consensus
   protocol, but the specific consensus protocol is dependent on the implementation.
 
-## Cache Key Limits
+## Key Limits
 
 Consistency may also be improved by forcibly limiting the number of keys that an attacker can feasibly
 use for targeting particular clients. One way to implement this limit is via key-based encryption,
