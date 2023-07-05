@@ -144,7 +144,7 @@ There are two different predicates for consistency, defined below.
 - Consistency: Two key sets with the same set ID are consistent if and only if (iff) the intersection
   of key IDs for each set is non-empty.
 - Global consistency: A key set is globally consistent iff, for all key sets with the
-  same set ID, the set of key IDs intersects with the key IDs of the candidate key set.
+  same set ID, the intersection between each set of key IDs and each other set is non-empty.
 
 Checking for consistency or global consistency of two sets of key sets (singletons or not)
 consists in applying a verification function to those sets. If the two sets are consistent
