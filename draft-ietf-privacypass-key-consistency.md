@@ -151,7 +151,7 @@ consists in applying a verification function to those sets. If the two sets are 
 and the union of those two sets is equal to the set of all possible honestly generated values,
 then the union is globally consistent.
 
-Consistency checks can happen within a reliant system or out of it. We refer to these
+Consistency checks can happen within a reliant system, i.e., as part of the protocol in which consistency is preferred, or out of it, i.e., a separate protocol run alongside the reliant system. We refer to these
 two paths as in-band and out-of-band verification. In-band verification is a check
 which is invoked as part of a reliant system. This type of verification is only achieved
 by participants of the reliant system. In contrast, out-of-band verifiability is a check
