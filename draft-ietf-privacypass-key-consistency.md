@@ -141,7 +141,7 @@ no restrictions on whether the clients holding those keys are the same.
 
 There are two different predicates for consistency, defined below.
 
-- Consistency: Two key sets with the same set ID are consistent iff the intersection
+- Consistency: Two key sets with the same set ID are consistent if and only if (iff) the intersection
   of key IDs for each set is non-empty.
 - Global consistency: A key set is globally consistent iff, for all key sets with the
   same set ID, the set of key IDs intersects with the key IDs of the candidate key set.
