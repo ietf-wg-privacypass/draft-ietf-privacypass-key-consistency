@@ -358,7 +358,7 @@ which is a procedure where a client encrypt the information that it sends to a s
 or signed object generated with the server keys. This encryption uses a key derived from the key
 configuration, specifically not including any form of key identifier along with the encrypted
 information. If key derivation for the encryption uses a pre-image resistant function (like HKDF),
-the server can only decrypt the information if it knows the key configuration. As there is no
+the server can only decrypt the information only if it either knows the key configuration or can guess it. As there is no
 information the server can use to identify which key was used, it is forced to perform trial
 decryption if it wants to use multiple keys.
 
