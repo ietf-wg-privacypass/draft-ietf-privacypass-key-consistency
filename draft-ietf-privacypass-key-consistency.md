@@ -250,7 +250,7 @@ impose bandwidth costs on each client that may be impractical.
 
 If this cache is trusted, then all clients which request a key from this server are
 assured they have a consistent view of the server key compared to all other clients of
-the cache. If this cache is not trusted, operational risks may arise:
+the cache. A malicious cache can introduce the following threats:
 
 - The cache can collude with the server to give per-client keys to clients.
 - The cache can give all clients a key owned by the cache, and either collude with the server to use this
