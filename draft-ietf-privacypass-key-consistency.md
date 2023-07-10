@@ -141,17 +141,18 @@ no restrictions on whether the clients holding those keys are the same.
 
 There are two different predicates for consistency, defined below.
 
-- Consistency: Two key sets with the same set ID are consistent if and only if (iff) the intersection
-  of key IDs for each set is non-empty.
-- Global consistency: A key set is globally consistent iff, for all key sets with the
-  same set ID, the intersection between each set of key IDs and each other set is non-empty.
+- Consistency: Two key sets with the same set ID are consistent if and only if (iff) the
+  sets are equal.
+- Global consistency: A key set X is globally consistent iff, for all key sets Y with the
+  same set ID, the X and Y are consistent.
 
-Checking for consistency or global consistency of two sets of key sets (singletons or not)
+Checking for consistency or global consistency of two key sets (singletons or not)
 consists in applying a verification function to those sets. If the two sets are consistent
 and the union of those two sets is equal to the set of all possible honestly generated values,
 then the union is globally consistent.
 
-Consistency checks can happen within a reliant system, i.e., as part of the protocol in which consistency is preferred, or out of it, i.e., a separate protocol run alongside the reliant system. We refer to these
+Consistency checks can happen within a reliant system, i.e., as part of the protocol in
+which consistency is preferred, or out of it, i.e., a separate protocol run alongside the reliant system. We refer to these
 two paths as in-band and out-of-band verification. In-band verification is a check
 which is invoked as part of a reliant system. This type of verification is only achieved
 by participants of the reliant system. In contrast, out-of-band verifiability is a check
@@ -323,7 +324,7 @@ cache directly with the server, as shown in the figure below.
 Ideally, clients confirm with the server via some anonymizing proxy. Examples of proxies
 include anonymous systems such as Tor. Tor proxies are general purpose and operate
 at a lower layer, on arbitrary communication flows, and therefore they are oblivious
-to clients fetching keys. A large set of untrusted proxies that are aware of key fetch
+to clients fetching keys. Untrusted proxies that are aware of key fetch
 requests ({{cache-based}}) may be used in a similar way. Depending on how clients
 fetch such keys from servers, it may become more difficult for servers to uniquely
 target individual clients with unique keys without detection. This is especially true
