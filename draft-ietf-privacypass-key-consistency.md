@@ -323,7 +323,7 @@ cache directly with the server, as shown in the figure below.
 Ideally, clients confirm with the server via some anonymizing proxy. Examples of proxies
 include anonymous systems such as Tor. Tor proxies are general purpose and operate
 at a lower layer, on arbitrary communication flows, and therefore they are oblivious
-to clients fetching keys. A large set of untrusted proxies that are aware of key fetch
+to clients fetching keys. Untrusted proxies that are aware of key fetch
 requests ({{cache-based}}) may be used in a similar way. Depending on how clients
 fetch such keys from servers, it may become more difficult for servers to uniquely
 target individual clients with unique keys without detection. This is especially true
