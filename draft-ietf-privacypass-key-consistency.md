@@ -176,7 +176,7 @@ that availability is preferred to total consistency.
 # Consistency Mechanisms
 
 There are a variety of ways in which reliant systems may build key consistency solutions,
-ranging in operational complexity to ease-of-implementation. In this section, we survey
+with different trade-offs for operational and implementation complexity. In this section, we survey
 a number of possible solutions. The viability of each varies depending on the applicable
 threat model, external dependencies, and overall reliant system's requirements.
 
